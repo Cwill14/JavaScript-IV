@@ -8,39 +8,78 @@ Prototype Refactor
 
 */
 
-function GameObject(attributes) {
-    this.createdAt = attributes.createdAt;
-    this.name = attributes.name;
-    this.dimensions = attributes.dimensions;
+// function GameObject(attributes) {
+//     this.createdAt = attributes.createdAt;
+//     this.name = attributes.name;
+//     this.dimensions = attributes.dimensions;
+// }
+//                  refactored into 
+class GameObject {
+    constructor(attributes) {
+        this.createdAt = attributes.createdAt;
+        this.name = attributes.name;
+        this.dimensions = attributes.dimensions;
+    }
+    destroy() {
+        return `${this.name} was removed from the game.`
+    }
+    
 }
   
-GameObject.prototype.destroy = function() {
-    return `${this.name} was removed from the game.`
+//                  refactored to class above
+// GameObject.prototype.destroy = function() {
+//     return `${this.name} was removed from the game.`
+// }
+  
+
+// function CharacterStats(charStats) {
+//     GameObject.call(this, charStats)
+//     this.healthPoints =  charStats.healthPoints;
+// }
+//                     refactored into
+class CharacterStats extends GameObject {
+    constructor(charStats) {
+        super(charStats);
+        this.healthPoints =  charStats.healthPoints;
+    }
+    takeDamage() {
+        return `${this.name} took damage.`
+    }
 }
+//                      refactored into class above
+// CharacterStats.prototype = Object.create(GameObject.prototype);
   
-function CharacterStats(charStats) {
-    GameObject.call(this, charStats)
-    this.healthPoints =  charStats.healthPoints;
-}
-  
-CharacterStats.prototype = Object.create(GameObject.prototype);
-  
-CharacterStats.prototype.takeDamage = function() {
-    return `${this.name} took damage.`
+// CharacterStats.prototype.takeDamage = function() {
+//     return `${this.name} took damage.`
+// }
+
+// function Humanoid(attr) {
+//     CharacterStats.call(this, attr);
+//     this.team = attr.team;
+//     this.weapons = attr.weapons;
+//     this.language = attr.language;
+// }
+//                    refactored into 
+class Humanoid extends CharacterStats {
+    // CharacterStats.call(this, attr);
+    constructor(attr) {
+        super(attr);
+        this.team = attr.team;
+        this.weapons = attr.weapons;
+        this.language = attr.language;
+    }
+    greet() {
+        return `${this.name} offers a gretting in ${this.language}`;
+    }
+
 }
 
-function Humanoid(attr) {
-    CharacterStats.call(this, attr);
-    this.team = attr.team;
-    this.weapons = attr.weapons;
-    this.language = attr.language;
-}
+//                   refactored into class above
+// Humanoid.prototype = Object.create(CharacterStats.prototype);
   
-Humanoid.prototype = Object.create(CharacterStats.prototype);
-  
-Humanoid.prototype.greet = function() {
-    return `${this.name} offers a gretting in ${this.language}`;
-}
+// Humanoid.prototype.greet = function() {
+//     return `${this.name} offers a gretting in ${this.language}`;
+// }
 
 ///
 
