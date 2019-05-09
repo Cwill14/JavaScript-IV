@@ -23,6 +23,10 @@ class Instructor extends Person {
     grade(student, subject) {
         console.log(`${student.name} receives a perfect score on ${subject}`);
     }
+    randomGrade(student) {
+        let value = Math.random() * 10 + 1;
+        student.grade = student.grade + value; 
+    }
 }
 
 class Student extends Person {
@@ -31,6 +35,8 @@ class Student extends Person {
         this.previousBackground = sAttributes.previousBackground;
         this.className = sAttributes.className;
         this.favSubjects = sAttributes.favSubjects;
+        this.grade = 87;
+        this.grade =  Math.floor(Math.random() * 100);
     }
     listsSubjects() {
         console.log(this.favSubjects);
@@ -40,6 +46,11 @@ class Student extends Person {
     }
     sprintChallenge(subject) {
         console.log(`${this.name} has begun sprint challenge on ${subject}`);
+    }
+    graduate() {
+        if(this.grade >= 70) {
+            console.log(`${this.name} has a grade of ${this.grade}, and is ready to graduate!`);
+        } else {}
     }
 }
 
@@ -92,3 +103,6 @@ george.PRAssignment('Prototypes');
 george.sprintChallenge('JavaScript III');
 joe.standUp('web22_joe');
 joe.debugsCode(george, 'Preprocessing II');
+
+george.graduate();
+joe.randomGrade(george);
