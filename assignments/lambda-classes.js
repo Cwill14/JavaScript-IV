@@ -24,8 +24,16 @@ class Instructor extends Person {
         console.log(`${student.name} receives a perfect score on ${subject}`);
     }
     randomGrade(student) {
-        let value = Math.random() * 10 + 1;
-        student.grade = student.grade + value; 
+        console.log(`Student's grade before randomGrade: ${student.grade}`);
+        let value = Math.round(Math.random() * 20 - 10);
+        console.log(`The value is: ${value}`);
+        student.grade = student.grade + value;
+        if(student.grade > 100) {
+            student.grade = 100;
+        } else if(student.grade < 0) {
+            student.grade = 0;
+        }
+        console.log(`The grade after randomGrade is: ${student.grade}`);
     }
 }
 
@@ -35,7 +43,6 @@ class Student extends Person {
         this.previousBackground = sAttributes.previousBackground;
         this.className = sAttributes.className;
         this.favSubjects = sAttributes.favSubjects;
-        this.grade = 87;
         this.grade =  Math.floor(Math.random() * 100);
     }
     listsSubjects() {
@@ -55,10 +62,10 @@ class Student extends Person {
 }
 
 class ProjectManager extends Instructor {
-    constructor(pmAttributes) {
-        super(pmAttributes);
-        this.gradClassName = pmAttributes.gradClassName;
-        this.favInstructor = pmAttributes.favInstructor;
+    constructor({gradClassName, favInstructor, specialty, favLanguage, catchPhrase, name, age, location}) {
+        super({specialty, favLanguage, catchPhrase, name, age, location});
+        this.gradClassName = gradClassName;
+        this.favInstructor = favInstructor;
     }
     standUp(slackChannel) {
         console.log(`${this.name} announces to ${slackChannel}, @channel standy times!`);
@@ -104,5 +111,5 @@ george.sprintChallenge('JavaScript III');
 joe.standUp('web22_joe');
 joe.debugsCode(george, 'Preprocessing II');
 
-george.graduate();
 joe.randomGrade(george);
+george.graduate();
